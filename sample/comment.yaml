@@ -1,0 +1,118 @@
+version: 1.0
+info:
+    title: the comment api
+    description: the comment api
+    contact:
+        name: liulnn
+        url: http://www.flove.xyz
+        email: liulnn@126.com
+schemes: ["https"]
+host: api.flove.xyz
+basePath: "/"
+consumers: ["application/json"]
+produces: ["application/json"]
+resources:
+    /topics/{topic_id}/comments:
+        get:
+            summary: get the topic's comments by page
+            descriptin: get the topic's comments by page
+            parameters:
+              - name: page_size
+                in: "query"
+                required: false
+                description: the page size
+                type: "integer"
+                allowEmptyValue: false
+              - name: page_num
+                in: "query"
+                required: false
+                description: the page number 
+                type: "integer"
+                allowEmptyValue: false
+            responses:
+                200:
+                    reason: OK
+                    description: the success response info
+                    headers:
+                        link:
+                            description: the links of the comment set
+                            type: "string"
+                    type: "array"
+                    arrayContent:
+                      - name: comment_id
+                        description: the id of one comment
+                        type: "string"
+                      - name: content
+                        description: the content of one comment
+                        type: "string"
+                      - name: created_at
+                        description: the created time of one comment
+                        type: "string"
+                400:
+                    reason: Bad Request
+                    description: the parameters valid failed
+                    type: "object"
+                    objectContent:
+                      - name: message
+                        description: the message of valid failed
+                        type: "string"
+                      - name: errors
+                        description: the errors info 
+                        type: "array"
+                        arrayContent:
+                          - name: field
+                            description: the name of one request param
+                            type: "string"
+                          - name: code
+                            description: the code of the error
+                            type: "string"
+            deprecated: false 
+        post:
+            summary: add one comment into the topic's comments set
+            descriptin: add one comment into the topic's comments set
+            parameters:
+              - name: content 
+                in: "body"
+                required: true
+                description: the content of the comment
+                type: "string"
+                allowEmptyValue: false
+            responses:
+                201:
+                    reason: Created
+                    description: the comment created
+                    headers:
+                        link:
+                            description: the link of the created comment
+                            type: "string"
+                    type: "object"
+                    objectContent:
+                      - name: comment_id
+                        description: the id of one comment
+                        type: "string"
+                      - name: content
+                        description: the content of one comment
+                        type: "string"
+                      - name: created_at
+                        description: the created time of one comment
+                        type: "string"
+                400:
+                    reason: Bad Request
+                    description: the parameters valid failed
+                    type: "object"
+                    objectContent:
+                      - name: message
+                        description: the message of valid failed
+                        type: "string"
+                      - name: errors
+                        description: the errors info 
+                        type: "array"
+                        arrayContent:
+                          - name: field
+                            description: the name of one request param
+                            type: "string"
+                          - name: code
+                            description: the code of the error
+                            type: "string"
+            deprecated: false 
+    /topics/{topic_id}/comments/{comment_id}:
