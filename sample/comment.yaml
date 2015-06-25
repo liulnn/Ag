@@ -116,3 +116,32 @@ resources:
                             type: "string"
             deprecated: false 
     /topics/{topic_id}/comments/{comment_id}:
+        get:
+            summary: get the topic's one comment
+            descriptin: get the topic's one comment
+            responses:
+                200:
+                    reason: OK
+                    description: the success response info
+                    type: "object"
+                    objectContent:
+                      - name: comment_id
+                        description: the id of one comment
+                        type: "string"
+                      - name: content
+                        description: the content of one comment
+                        type: "string"
+                      - name: created_at
+                        description: the created time of one comment
+                        type: "string"
+                404:
+                    reason: Not Found
+                    description: the comment not found
+        delete:
+            summary: delete the topic's one comment
+            descriptin: delete the topic's one comment
+            responses:
+                204:
+                    reason: No Content 
+                    description: delete success
+            deprecated: false 
